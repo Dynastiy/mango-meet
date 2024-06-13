@@ -2,7 +2,10 @@
   <div class="flex flex-col gap-4">
     <div class="flex justify-between items-center">
       <span class="brand-icon block text-3xl">Mango Meet</span>
-      <button class="brand-btn brand-primary flex items-center gap-2 justify-center" @click="$router.push('/app/upgrade')">
+      <button
+        class="brand-btn brand-primary flex items-center gap-2 justify-center"
+        @click="$router.push('/app/upgrade')"
+      >
         <i-icon icon="icomoon-free:fire" />
         upgrade
       </button>
@@ -23,8 +26,13 @@
       </div>
     </div>
     <div class="flex flex-col gap-3">
-      <h1 class="font-bold">John Doe, <span class="text-primary font-bold">28,</span> F</h1>
-      <span class="text-sm font-medium flex items-center gap-1"> <i-icon icon="tabler:location-filled" class="text-primary" /> Lagos, Nigeria </span>
+      <h1 class="font-bold">Jane Doe, <span class="text-primary font-bold">28</span></h1>
+      <span class="text-sm font-medium flex items-center gap-1">
+        <i-icon icon="icons8:gender" class="text-primary" /> Female
+      </span>
+      <span class="text-sm font-medium flex items-center gap-1">
+        <i-icon icon="tabler:location-filled" class="text-primary" /> Lagos, Nigeria
+      </span>
       <span class="font-medium text-sm flex flex-col">
         <span class="text-primary font-medium text-[13px]">About Me</span>
         <span class="font-medium">
@@ -39,7 +47,9 @@
     </div> -->
     <div class="flex gap-4 justify-center mt-3">
       <button class="brand-btn brand-primary w-full">Meet & Connect</button>
-      <button class="brand-btn bg-secondary text-white w-full" @click="$router.push('/app/claim')">Claim Starcoins</button>
+      <button class="brand-btn bg-secondary text-white w-full" @click="$router.push('/app/claim')">
+        Claim Starcoins
+      </button>
     </div>
   </div>
 </template>

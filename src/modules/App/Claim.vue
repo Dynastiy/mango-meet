@@ -1,26 +1,35 @@
 <template>
   <div class="h-[85vh] flex flex-col justify-between">
-    <div class="flex flex-col gap-4">
-        <span @click="$router.go(-1)">
-            <i-icon icon="charm:arrow-left" class="text-xl" />
-        </span>
-      <div
-        class="claim-header p-6 rounded-[8px] h-[200px] flex justify-between items-end text-white"
+    <div class="flex flex-col gap-2">
+      <span @click="$router.go(-1)">
+        <i-icon icon="charm:arrow-left" class="text-xl" />
+      </span>
+
+      <div class="border-8 rounded-full mx-auto mt-12 flex items-center justify-center border border-primary w-[200px] h-[200px]">
+        <span class="font-bold text-xl">4,000</span>
+      </div>
+      <button
+        class="brand-btn mx-auto brand-primary flex items-center w-fit gap-2 justify-center"
+        @click="alert('claimed')"
       >
+        <i-icon icon="icomoon-free:fire" />
+        Claim
+      </button>
+
+      <div class="claim-header p-6 rounded-[8px] flex justify-between items-end text-white mt-12">
         <div>
-          <h4 class="text-sm text-gray-200">Total Amount</h4>
+          <h4 class="text-xs text-gray-200">Starcoins Claimed</h4>
           <h1 class="font-bold text-2xl">N300, 000</h1>
         </div>
-        <button class="brand-btn-md brand-primary">Claim</button>
-      </div>
-      <div class="bg-white py-3 px-6 rounded-[8px] flex justify-between">
-        <span class="font-semibold text-sm">Starcoins Claimed</span>
-        <span class="font-semibold text-sm">N300, 000</span>
       </div>
     </div>
     <div class="flex gap-4 justify-center mt-3">
-      <button class="brand-btn brand-primary w-full" @click="$router.push('/')">Meet & Connect</button>
-      <button class="brand-btn bg-secondary text-white w-full" @click="$router.push('/app/claim')">Claim Starcoins</button>
+      <button class="brand-btn brand-primary w-full" @click="$router.push('/')">
+        Meet & Connect
+      </button>
+      <button class="brand-btn bg-secondary text-white w-full" @click="$router.push('/app/claim')">
+        Claim Starcoins
+      </button>
     </div>
   </div>
 </template>
