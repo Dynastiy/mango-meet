@@ -19,7 +19,7 @@
       <div class="claim-header p-6 rounded-[8px] flex justify-between items-end text-white mt-12">
         <div>
           <h4 class="text-xs text-gray-200">Starcoins Claimed</h4>
-          <h1 class="font-bold text-2xl">N300, 000</h1>
+          <h1 class="font-bold text-2xl">300, 000</h1>
         </div>
       </div>
     </div>
