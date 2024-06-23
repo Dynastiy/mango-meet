@@ -1,17 +1,9 @@
-import product from './product';
-import customer from './customer';
-import vendor from './vendor'
-import response from './response'
-import config from './config'
-import auth from './auth'
+import middleware from './middleware';
+import appDomain from './appDomain';
 
 export const services = {
-  product,
-  customer,
-  vendor,
-  response,
-  config,
-  auth
+  middleware,
+  appDomain
 };
 
 // Optionally, if you want to access all services via a single object

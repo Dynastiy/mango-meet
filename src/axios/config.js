@@ -11,8 +11,8 @@ const config = {
     apiKey: import.meta.env.VITE_APP_API_KEY,
   
     apiUrl: import.meta.env.VITE_APP_API_URL,
-    imgUrl: import.meta.env.VITE_APP_IMG_URL,
-    paystackUrl: import.meta.env.VITE_APP_PAYSTACK,
+    middlewareUrl: import.meta.env.VITE_APP_MIDDLEWARE_URL,
+
   
     websocket: import.meta.env.VITE_APP_WEBSOCKETS_SERVER,
     pusherKey: import.meta.env.VITE_APP_PUSHER_APP_KEY,
@@ -21,12 +21,11 @@ const config = {
     supportEmail: import.meta.env.VITE_APP_SUPPORT_EMAIL,
     supportPhone: import.meta.env.VITE_APP_SUPPORT_PHONE,
   
-    accessTokenStorageKey: "warehauze_session",
-    accessTokenExpiresInStorageKey: "warehauze_session_expires_in",
-    accessTokenExpiresAtStorageKey: "warehauze_session_expires_at",
+    accessTokenStorageKey: "mango_meet_session",
+    accessTokenExpiresInStorageKey: "mango_meet_session_expires_in",
+    accessTokenExpiresAtStorageKey: "mango_meet_session_expires_at",
     accessTokenExpiryTimeLeftForFrontendAutoRefresh: 18000, // in seconds, 18000secs = 5 hours
-    referralCodeStorageKey: "warehauze_referral_code",
-    appDomain: "https://warehauze.com/",
+    referralCodeStorageKey: "mango_meet_referral_code",
 
     getSubdomain: () => {
       let host = window.location.host;

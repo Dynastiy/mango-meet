@@ -20,25 +20,25 @@
           <i-icon icon="ion:copy" />
         </span>
       </div>
-      <div class="bg-secondary py-5 px-6 flex justify-between items-center rounded-[8px]">
+
+      <!-- <div class="bg-secondary py-5 px-6 flex justify-between items-center rounded-[8px]">
         <div class="flex flex-col gap-1">
           <span class="font-medium text-gray-200 text-xs">Balance</span>
           <span class="font-bold text-2xl text-white">0.6USDT</span>
         </div>
         <i-icon icon="solar:wallet-money-outline" class="text-4xl text-accent" />
+      </div> -->
+      <div>
+        <user-wallet />
       </div>
+
+      <div>
+        <UpgradeFees />
+      </div>
+
       <div>
         <h4 class="font-semibold mb-2">Recent Transactions</h4>
-        <div class="flex flex-col gap-3">
-          <div
-            class="bg-white py-3 px-6 rounded-[8px] flex justify-between"
-            v-for="item in 4"
-            :key="item"
-          >
-            <span class="font-semibold text-sm">0.2USDT</span>
-            <span class="font-medium text-gray-500 text-sm">23/12/2023</span>
-          </div>
-        </div>
+        <txn-history />
       </div>
     </div>
     <div class="flex gap-4 justify-center mt-3">
@@ -48,10 +48,34 @@
 </template>
 
 <script>
+import UpgradeFees from '@/components/Upgrade/UpgradeFees.vue'
+import TxnHistory from '@/components/Upgrade/TxnHistory.vue'
+import UserWallet from '@/components/utils/UserWallet.vue'
 export default {
+  components: { UpgradeFees, TxnHistory, UserWallet },
   data() {
-    return {
-      address: '0x5g3uyguy2gr89328926h8426uih87s'
+    return {}
+  },
+
+  methods: {
+    generateAddress() {
+      let user_id = 1
+      this.$middleware.generateWalletAddress(user_id).then((res) => {
+        this.$store.commit('auth/setWalletAddress', res.data.address)
+      })
+    }
+  },
+
+  beforeMount() {
+    let hasAddress = !!this.address
+    if (!hasAddress) {
+      this.generateAddress()
+    }
+  },
+
+  computed: {
+    address() {
+      return this.$store.getters['auth/getWalletAddress']
     }
   }
 }

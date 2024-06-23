@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     user: null,
-    categories: [],
+    address: null,
     sub_categories: [],
     tags: [],
     order: null,
@@ -16,8 +16,8 @@ export default {
       state.user = data
     },
 
-    setCategories(state, data) {
-      state.categories = data
+    setWalletAddress(state, data) {
+      state.address = data
     },
 
     setOrder(state, data) {
@@ -67,7 +67,7 @@ export default {
     getAddress: (state) => state.address,
     getMeta: (state) => state.meta,
     getToken: (state) => state.warehauze_token,
-    getCategories: (state) => state.categories,
+    getWalletAddress: (state) => state.address,
     getSubCategories: (state) => state.sub_categories,
     getTags: (state) => state.tags,
     getOrder: (state) => state.order,
