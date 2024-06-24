@@ -13,14 +13,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  build: {
-    rollupOptions: {
-      output: {
-        // Customize asset filenames with content hash
-        // assetFileNames: 'assets/[name].[hash][extname]',
-        chunkFileNames: 'index.html',
-        // entryFileNames: 'entry/[name].[hash].js'
-      }
-    }
-  }
+  optimizeDeps: {
+    include: [
+      "@fawmi/vue-google-maps",
+      "fast-deep-equal",
+    ],
+  },
 })
