@@ -28,8 +28,9 @@
                     />
                   </span>
                 </span>
-                <h1 class="text-4xl font-bold">
-                  {{ `${item.wallet_balance_raw} ${item.wallet_symbol}` }}
+                <h1 class="text-4xl font-bold flex items-end gap-[2px]">
+                  {{ `${item.wallet_balance_raw}` }}
+                  <span class="text-lg">{{ item.wallet_symbol }}</span>
                 </h1>
               </div>
               <img src="@/assets/img/wallet.svg" class="w-24" alt="" />

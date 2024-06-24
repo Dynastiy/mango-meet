@@ -87,7 +87,7 @@ export default {
 
     getSubscriptions() {
       this.loading = true
-      let user_id = 1
+      let user_id = this.user_id
       this.$appDomain
         .listSubscriptionFees(user_id)
         .then((res) => {
@@ -96,11 +96,17 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
+    }
   },
 
   beforeMount() {
     this.getSubscriptions()
+  },
+
+  computed: {
+    user_id() {
+      return this.$store.getters['auth/getUserID']
+    }
   }
 }
 </script>

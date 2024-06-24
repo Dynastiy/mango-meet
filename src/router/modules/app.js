@@ -16,7 +16,7 @@ const routes = [
   },
 
   {
-    path: '/app/claim',
+    path: '/claim',
     name: 'app-claim',
     component: Claim,
     meta: {
@@ -28,8 +28,20 @@ const routes = [
   },
 
   {
-    path: '/app/upgrade',
+    path: '/upgrade',
     name: 'app-upgrade',
+    component: Upgrade,
+    meta: {
+      layout: 'Dashboard',
+      requiresAuth: false,
+      parent: 'home',
+      name: 'home'
+    }
+  },
+
+  {
+    path: '/profile',
+    name: 'app-profile',
     component: Upgrade,
     meta: {
       layout: 'Dashboard',

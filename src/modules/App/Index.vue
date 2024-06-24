@@ -1,10 +1,13 @@
 <template>
   <div class="flex flex-col gap-4">
+    <div>
+      {{ user_id }}
+    </div>
     <div class="flex justify-between items-center">
       <span class="brand-icon block text-3xl">Mango Meet</span>
       <button
         class="brand-btn brand-primary flex items-center gap-2 justify-center"
-        @click="$router.push('/app/upgrade')"
+        @click="$router.push('/upgrade')"
       >
         <i-icon icon="icomoon-free:fire" />
         upgrade
@@ -55,7 +58,7 @@
     </div> -->
     <div class="flex gap-4 justify-center mt-3">
       <button class="brand-btn brand-primary w-full">Meet & Connect</button>
-      <button class="brand-btn bg-secondary text-white w-full" @click="$router.push('/app/claim')">
+      <button class="brand-btn bg-secondary text-white w-full" @click="$router.push('/claim')">
         Claim Starcoins
       </button>
     </div>
@@ -64,8 +67,6 @@
 
 <script>
 import { useToast } from 'vue-toastification'
-
-// const toast = useToast();
 export default {
   data() {
     return {
@@ -81,7 +82,7 @@ export default {
   methods: {
     getMatch() {
       let payload = this.filter
-      let user_id = 1
+      let user_id = this.user_id
       this.$appDomain.getMatch(payload, user_id).then((res) => {
         console.log(res)
         this.match = res.data
@@ -102,8 +103,12 @@ export default {
   },
 
   beforeMount() {
+    let queryData = this.$route.query
+    if(!this.user_id) {
+      this.$store.commit('auth/setUserID', queryData.user_id)
+    }
     this.getMatch()
-  }
+  },
 
   // watch: {
   //   filter: {
@@ -116,6 +121,11 @@ export default {
   //     deep: true
   //   }
   // }
+  computed:{
+    user_id(){
+      return this.$store.getters['auth/getUserID']
+    }
+  }
 }
 </script>
 

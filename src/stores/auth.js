@@ -1,8 +1,11 @@
+// import router from "@/router"
+
 export default {
   namespaced: true,
   state: {
     user: null,
     address: null,
+    userId: null,
     sub_categories: [],
     tags: [],
     order: null,
@@ -22,6 +25,12 @@ export default {
 
     setOrder(state, data) {
       state.order = data
+    },
+
+    setUserID(state, ID) {
+      state.userId = ID
+      // console.log(window.location.search, 'ommmo');
+      // console.log(router, 'ommmo');
     },
 
     removeOrder(state) {
@@ -71,6 +80,7 @@ export default {
     getSubCategories: (state) => state.sub_categories,
     getTags: (state) => state.tags,
     getOrder: (state) => state.order,
-    getAuthenticated: (state) => !!state.warehauze_token
+    getAuthenticated: (state) => !!state.warehauze_token,
+    getUserID:(state) => state.userId
   }
 }

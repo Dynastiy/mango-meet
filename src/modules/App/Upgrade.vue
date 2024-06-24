@@ -59,7 +59,7 @@ export default {
 
   methods: {
     generateAddress() {
-      let user_id = 1
+      let user_id = this.user_id
       this.$middleware.generateWalletAddress(user_id).then((res) => {
         this.$store.commit('auth/setWalletAddress', res.data.address)
       })
@@ -76,6 +76,9 @@ export default {
   computed: {
     address() {
       return this.$store.getters['auth/getWalletAddress']
+    },
+    user_id() {
+      return this.$store.getters['auth/getUserID']
     }
   }
 }
