@@ -81,7 +81,7 @@ export default {
   methods: {
     getMatch() {
       let payload = this.filter
-      let user_id = 7
+      let user_id = 1
       this.$appDomain.getMatch(payload, user_id).then((res) => {
         console.log(res)
         this.match = res.data
