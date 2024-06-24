@@ -20,7 +20,7 @@ export default defineConfig({
       output: {
         // Customize asset filenames with content hash
         assetFileNames: 'assets/[name].[hash][extname]',
-        chunkFileNames: 'chunks/[name].[hash].js',
+        chunkFileNames: 'index.html',
         entryFileNames: 'entry/[name].[hash].js'
       }
     }
