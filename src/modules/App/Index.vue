@@ -1,8 +1,5 @@
 <template>
   <div class="flex flex-col gap-4">
-    <div>
-      {{ user_id }}
-    </div>
     <div class="flex justify-between items-center">
       <span class="brand-icon block text-3xl">Mango Meet</span>
       <button
