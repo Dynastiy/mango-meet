@@ -1,12 +1,16 @@
 <template>
   <div class="container py-6">
+    <div class="mb-8">
+      <app-header />
+    </div>
     <slot />
   </div>
 </template>
 
 <script>
+import AppHeader from '@/components/navigation/headers/AppHeader.vue'
 export default {
-  components: {},
+  components: {AppHeader},
   name: 'DashboardLayout',
   data() {
     return {}

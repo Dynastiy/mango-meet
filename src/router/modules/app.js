@@ -1,6 +1,7 @@
 import Home from '@/modules/App/Index.vue'
 import Claim from '@/modules/App/Claim.vue'
 import Upgrade from '@/modules/App/Upgrade.vue'
+import Profile from '@/modules/App/Profile.vue'
 
 const routes = [
   {
@@ -23,7 +24,7 @@ const routes = [
       layout: 'Dashboard',
       requiresAuth: false,
       parent: 'home',
-      name: 'home'
+      name: 'claims'
     }
   },
 
@@ -35,19 +36,19 @@ const routes = [
       layout: 'Dashboard',
       requiresAuth: false,
       parent: 'home',
-      name: 'home'
+      name: 'upgrade'
     }
   },
 
   {
     path: '/profile',
     name: 'app-profile',
-    component: Upgrade,
+    component: Profile,
     meta: {
       layout: 'Dashboard',
       requiresAuth: false,
       parent: 'home',
-      name: 'home'
+      name: 'profile'
     }
   },
 

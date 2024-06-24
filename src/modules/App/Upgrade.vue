@@ -1,12 +1,6 @@
 <template>
   <div class="min-h-[85vh] flex flex-col justify-between">
     <div class="flex flex-col gap-4">
-      <div>
-        <span @click="$router.go(-1)">
-          <i-icon icon="charm:arrow-left" class="text-xl" />
-        </span>
-        <h3 class="font-bold my-2 text-2xl">Upgrade</h3>
-      </div>
       <span class="text-sm font-semibold">Fund your balance below with USDT to upgrade</span>
       <div class="flex items-center p-2 bg-white rounded-[6px] shadow-sm">
         <input

@@ -1,15 +1,6 @@
 <template>
   <div class="flex flex-col gap-4">
-    <div class="flex justify-between items-center">
-      <span class="brand-icon block text-3xl">Mango Meet</span>
-      <button
-        class="brand-btn brand-primary flex items-center gap-2 justify-center"
-        @click="$router.push('/upgrade')"
-      >
-        <i-icon icon="icomoon-free:fire" />
-        upgrade
-      </button>
-    </div>
+   
     <div class="flex flex-col gap-4" v-for="(item, i) in match" :key="i">
       <div
         class="h-[60vh] rounded-[10px] bg-cover bg-top flex p-4 items-end"
@@ -100,24 +91,9 @@ export default {
   },
 
   beforeMount() {
-    let queryData = this.$route.query
-    if(!this.user_id) {
-      this.$store.commit('auth/setUserID', queryData.user_id)
-    }
     this.getMatch()
   },
-
-  // watch: {
-  //   filter: {
-  //     handler(val) {
-  //       if (val) {
-  //         this.getMatch()
-  //       }
-  //     },
-  //     immediate: true,
-  //     deep: true
-  //   }
-  // }
+  
   computed:{
     user_id(){
       return this.$store.getters['auth/getUserID']

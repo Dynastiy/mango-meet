@@ -2,6 +2,18 @@ import $request from '@/axios/index'
 import { catchAxiosError, catchAxiosSuccess } from './response'
 
 export default {
+  async getUserMeta(payload, user_id) {
+    try {
+      let res = await $request.get(`wp-json/nellalink/v2/smart-meta-manager/user/${user_id}`, { params: payload })
+      catchAxiosSuccess(res)
+      return res.data
+    } catch (error) {
+      catchAxiosError(error)
+      throw error
+    }
+  },
+
+
   async getMatch(payload, user_id) {
     try {
       let res = await $request.get(`wp-json/nellalink-mango-meet/v1/match/${user_id}`, { params: payload })
@@ -25,14 +37,6 @@ export default {
 
   //   Get Wallets
   async getWallets(params) {
-    // params, body
-    // return $request
-    //   .get(
-    //     `/wp-json/rimplenet/v1/user-wallet-balance/multi?wallet_id=${body}&formatted=yes&user_id=${params}`
-    //   )
-    //   .then((response) => response.data);
-    // wallet_id=${body}&formatted=yes&user_id=${params}
-
       try {
         let res = await $request.get(`/wp-json/rimplenet/v1/user-wallet-balance/multi`, {
           params
@@ -46,16 +50,24 @@ export default {
 
   //   get Transactions
   async getTransactions(params) {
-    // return $request
-    //   .get(`wp-json/rimplenet/v3/transactions?user_id=${params}&page_no=${page}`)
-    //   .then((response) => response.data);
-
-    // ?user_id=${params}&page_no=${page}
       try {
       let res = await $request.get(`wp-json/rimplenet/v3/transactions`, {
         params
       })
       // catchAxiosSuccess(res)
+      return res.data
+    } catch (error) {
+      catchAxiosError(error)
+      throw error
+    }
+  },
+
+  async claim(params) {
+      try {
+      let res = await $request.get(`wp-json/nellalink-mango-meet/v1/claim-coins`, {
+        params
+      })
+      catchAxiosSuccess(res)
       return res.data
     } catch (error) {
       catchAxiosError(error)

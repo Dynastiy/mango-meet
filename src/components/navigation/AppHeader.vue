@@ -25,9 +25,6 @@
               </div>
             </div>
             <div>
-              <!-- <span role="button">
-                    <i-icon icon="prime:angle-down" width="28px" />
-                  </span> -->
 
               <el-dropdown trigger="click">
                 <span class="el-dropdown-link">
@@ -55,7 +52,6 @@
 </template>
 
 <script>
-// import AppDrawer from "./MobileDrawer.vue";
 import image from '@/assets/img/no-user.png'
 export default {
   props: {

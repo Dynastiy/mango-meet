@@ -29,8 +29,6 @@ export default {
 
     setUserID(state, ID) {
       state.userId = ID
-      // console.log(window.location.search, 'ommmo');
-      // console.log(router, 'ommmo');
     },
 
     removeOrder(state) {
