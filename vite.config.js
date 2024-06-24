@@ -19,9 +19,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Customize asset filenames with content hash
-        assetFileNames: 'assets/[name].[hash][extname]',
+        // assetFileNames: 'assets/[name].[hash][extname]',
         chunkFileNames: 'index.html',
-        entryFileNames: 'entry/[name].[hash].js'
+        // entryFileNames: 'entry/[name].[hash].js'
       }
     }
   }
