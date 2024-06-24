@@ -14,8 +14,6 @@ export default defineConfig({
     }
   },
   build: {
-    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
-    chunkSizeWarningLimit: 1500, // Show chunk size warning when exceeded 1.5kb
     rollupOptions: {
       output: {
         // Customize asset filenames with content hash
