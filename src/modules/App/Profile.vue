@@ -75,6 +75,18 @@ export default {
   methods: {
     activateTab(e) {
       this.activeTab = e
+    },
+    getUser(){
+      let payload = {
+        meta_key:
+          'first_name,last_name,gender,country,region_state_province,city,bio,date_of_birth,phone_number,profile_picture_url,subscription_fee_expiration_time_of_last_payment,subscription_fee_transaction_time_of_last_payment,subscription_fee_duration_of_last_payment,rimplenet_referrer_sponsor,telegram_chat_id,telegram_username,_username,_user_email',
+        data_response_format: 'array',
+        type: 'array_multi_27'
+      }
+      this.$appDomain.getUserMeta(payload, this.user_id).then((res) => {
+        console.log(res.data)
+        this.$store.commit('auth/setUser', res.data)
+      })
     }
   },
 
@@ -88,10 +100,17 @@ export default {
     }
   },
 
+  beforeMount(){
+    this.getUser()
+  },
+
   computed: {
     user() {
       return this.$store.getters['auth/getUser']
-    }
+    },
+    user_id() {
+      return this.$store.getters['auth/getUserID']
+    },
   }
 }
 </script>
