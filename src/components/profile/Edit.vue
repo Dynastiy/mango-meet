@@ -41,7 +41,13 @@
           </span>
           <span class="w-full">
             <label class="text-xs" for="">Region, State, Province</label>
-            <select name="" id="" :disabled="form.country == ''" class="input capitalize" v-model="form.region_state_province">
+            <select
+              name=""
+              id=""
+              :disabled="form.country == ''"
+              class="input capitalize"
+              v-model="form.region_state_province"
+            >
               <option value="" selected disabled>--Select One--</option>
               <option v-for="(item, i) in regions" :value="item.iso_alpha_2_code" :key="i">
                 {{ item.region_state_province_name }}
@@ -73,6 +79,14 @@
           >
         </span>
       </div>
+      <button
+        @click="updateUser"
+        class="brand-btn w-full mt-4"
+        :disabled="loading"
+        :class="[loading ? 'bg-gray-400' : 'brand-primary']"
+      >
+        Update Profile
+      </button>
     </div>
   </div>
 </template>
@@ -90,13 +104,14 @@ export default {
         city: '',
         bio: '',
         date_of_birth: '',
-        gender: '',
+        gender: ''
         // profile_picture_url: ''
       },
       countries: [],
       regions: [],
       wordCount: 0,
-      totalCount: 200
+      totalCount: 200,
+      loading: false
     }
   },
 
@@ -111,6 +126,33 @@ export default {
           this.regions = res.data
         }
       })
+    },
+
+    updateUser(){
+        let dob = this.form.date_of_birth.split('-')
+        let newDOB = [dob[2], dob[1], dob[0]]
+        let payload = {
+            ...this.form,
+            date_of_birth: newDOB.join('-')
+        }
+        this.$appDomain.updateUserMeta(payload, this.user_id)
+        .then((res)=> {
+            this.getUser()
+            return res
+        })
+    },
+
+    getUser() {
+      let payload = {
+        meta_key:
+          'first_name,last_name,gender,country,region_state_province,city,bio,date_of_birth,phone_number,profile_picture_url,subscription_fee_expiration_time_of_last_payment,subscription_fee_transaction_time_of_last_payment,subscription_fee_duration_of_last_payment,rimplenet_referrer_sponsor,telegram_chat_id,telegram_username,_username,_user_email',
+        data_response_format: 'array',
+        type: 'array_multi_27'
+      }
+      this.$appDomain.getUserMeta(payload, this.user_id).then((res) => {
+        console.log(res.data)
+        this.$store.commit('auth/setUser', res.data)
+      })
     }
   },
 
@@ -122,9 +164,11 @@ export default {
   watch: {
     user: {
       handler(val) {
+        let dob = val.date_of_birth.split('-')
+        let newDOB = [dob[2], dob[1], dob[0]]
         this.form = {
-            ...val,
-            date_of_birth: new Date(val.date_of_birth)
+          ...val,
+          date_of_birth: newDOB.join('-')
         }
       },
       immediate: true,
@@ -162,6 +206,10 @@ export default {
 
     remainingCount() {
       return this.totalCount - this.wordCount
+    },
+
+    user_id() {
+      return this.$store.getters['auth/getUserID']
     }
   }
 }

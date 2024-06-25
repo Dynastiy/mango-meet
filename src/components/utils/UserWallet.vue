@@ -5,16 +5,22 @@
         <template #template>
           <div class="flex lg:flex-row md:flex-row flex-col w-full gap-4">
             <div v-for="item in 2" :key="item" class="w-full">
-              <el-skeleton-item variant="image" style="height: 120px; border-radius: 10px; width:100%" />
+              <el-skeleton-item
+                variant="image"
+                style="height: 120px; border-radius: 10px; width: 100%"
+              />
             </div>
           </div>
         </template>
         <template #default>
           <div class="flex lg:flex-row md:flex-row flex-col w-full gap-4">
             <div
-              class="flex items-center bg-secondary text-white px-4 py-8 rounded-lg justify-between lg:pt-4 lg:pt-4 w-full"
+              class="flex items-center bg-secondary text-white px-4 py-8 rounded-lg justify-between lg:pt-4 lg:pt-4 w-full hover:ml-2"
               v-for="(item, i) in balances"
               :key="i"
+              role="button"
+              @click="selectWallet(item)"
+              :class="[selected === item.wallet_id ? 'border-4 border-primary' : '' ]"
             >
               <div>
                 <span class="flex items-center gap-1">
@@ -54,7 +60,8 @@ export default {
     return {
       loading: false,
       showAmount: null,
-      balances: []
+      balances: [],
+      selected: null
     }
   },
   methods: {
@@ -76,6 +83,12 @@ export default {
         })
     },
 
+    selectWallet(item){
+      this.selected = this.selected && this.selected === item.wallet_id ? null : item.wallet_id
+      const data_to_emit = this.selected ? item : null
+      this.$emit('walletSelected', data_to_emit)
+    },
+
     revealAmount(item) {
       this.showAmount = !this.showAmount
         ? item.wallet_id
@@ -84,11 +97,11 @@ export default {
           : null
     },
 
-    triggerDeposit(){
+    triggerDeposit() {
       let payload = {
         user_id: this.user_id
       }
-      this.$middleware.dashboardRefresh(payload) 
+      this.$middleware.dashboardRefresh(payload)
     },
 
     hideBalance(value) {

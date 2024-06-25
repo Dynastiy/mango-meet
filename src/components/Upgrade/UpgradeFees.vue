@@ -2,7 +2,7 @@
   <div>
     <el-skeleton :loading="loading" animated>
       <template #template>
-        <div class="grid lg:grid-cols-4 md:grid-cols-4 grid-cols-1 gap-4 mt-4">
+        <div class="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-4 mt-4">
           <div v-for="item in 3" :key="item">
             <el-skeleton-item variant="image" style="height: 150px; border-radius: 10px" />
           </div>
@@ -76,8 +76,9 @@ export default {
 
   methods: {
     selectFees(e) {
-      console.log(e)
-      this.isActiveItem = this.changeTitle(e.subscription_name)
+      this.isActiveItem = this.isActiveItem && this.isActiveItem ===  this.changeTitle(e.subscription_name) ? null : this.changeTitle(e.subscription_name)
+      const data_to_emit = this.isActiveItem ? e : null
+      this.$emit('selectedFees', data_to_emit)
     },
 
     changeTitle(value) {

@@ -5,7 +5,7 @@
       <template #template>
         <div class="flex flex-col gap-4">
           <div v-for="item in 6" :key="item">
-            <el-skeleton-item variant="image" style="height: 40px; border-radius: 10px" />
+            <el-skeleton-item variant="image" style="height: 80px; border-radius: 10px" />
           </div>
         </div>
       </template>

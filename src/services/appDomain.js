@@ -13,10 +13,43 @@ export default {
     }
   },
 
+  async updateUserMeta(payload, user_id) {
+    try {
+      let res = await $request.put(`wp-json/nellalink/v2/smart-meta-manager/user/${user_id}`,  payload)
+      catchAxiosSuccess(res)
+      return res.data
+    } catch (error) {
+      catchAxiosError(error)
+      throw error
+    }
+  },
+
 
   async getMatch(payload, user_id) {
     try {
       let res = await $request.get(`wp-json/nellalink-mango-meet/v1/match/${user_id}`, { params: payload })
+      catchAxiosSuccess(res)
+      return res.data
+    } catch (error) {
+      catchAxiosError(error)
+      throw error
+    }
+  },
+
+  async likeMatch(payload) {
+    try {
+      let res = await $request.get(`wp-json/nellalink-mango-meet/v1/like-and-connect`, { params: payload })
+      catchAxiosSuccess(res)
+      return res.data
+    } catch (error) {
+      catchAxiosError(error)
+      throw error
+    }
+  },
+
+   async pay(payload) {
+    try {
+      let res = await $request.get(`wp-json/nellalink-mango-meet/v1/subscription-fees-payment`, { params: payload })
       catchAxiosSuccess(res)
       return res.data
     } catch (error) {

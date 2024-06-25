@@ -30,7 +30,11 @@
             :style="`background: url(${item?.profile_picture_url})`"
           >
             <div class="flex items-center justify-center gap-6 w-full">
-              <span class="bg-white block rounded-[8px] p-4 text-xl text-secondary w-fit shadow">
+              <span
+                class="bg-white block rounded-[8px] p-4 text-xl text-secondary w-fit shadow"
+                role="button"
+                @click="like(item)"
+              >
                 <i-icon icon="icon-park-solid:like" />
               </span>
               <span
@@ -104,6 +108,19 @@ export default {
         .finally(() => {
           this.loading = false
         })
+    },
+
+    like(e) {
+      let payload = {
+        user_id_to_connect: e.ID,
+        user_id: this.user_id
+      }
+      this.$appDomain.likeMatch(payload).then((res) => {
+        console.log(res)
+      })
+      // .finally(() => {
+      //   this.loading = false
+      // })
     },
 
     next() {

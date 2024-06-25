@@ -52,7 +52,7 @@ export default {
   },
 
   methods: {
-    getUser(){
+    getUser() {
       let payload = {
         meta_key:
           'first_name,last_name,gender,country,region_state_province,city,bio,date_of_birth,phone_number,profile_picture_url,subscription_fee_expiration_time_of_last_payment,subscription_fee_transaction_time_of_last_payment,subscription_fee_duration_of_last_payment,rimplenet_referrer_sponsor,telegram_chat_id,telegram_username,_username,_user_email',
@@ -69,12 +69,25 @@ export default {
   beforeMount() {
     console.log(this.user, 'res:User data from app header')
     const queryData = this.$route.query
-    if (queryData.user_id !== this.user_id) {
+    if (this.user_id) {
+      if (queryData.user_id) {
+        if (queryData.user_id !== this.user_id) {
+          this.$store.commit('auth/setUserID', queryData.user_id)
+        }
+      }
+    } else {
       this.$store.commit('auth/setUserID', queryData.user_id)
     }
+
     const token = localStorage.getItem('_user_token')
-    if (queryData.access_token !== token) {
-      console.log(queryData.access_token, 'from check')
+    if (token) {
+      if (queryData.access_token) {
+        if (queryData.access_token !== token) {
+          console.log(queryData.access_token, 'from check')
+          localStorage.setItem('_user_token', queryData.access_token)
+        }
+      }
+    } else {
       localStorage.setItem('_user_token', queryData.access_token)
     }
   },
@@ -82,12 +95,11 @@ export default {
   watch: {
     user_id: {
       handler(oldVal, newVal) {
-       if(oldVal !== newVal) {
-        this.getUser()
-       }
-      },
-      // immediate: true
-    },
+        if (oldVal !== newVal) {
+          this.getUser()
+        }
+      }
+    }
   },
 
   computed: {

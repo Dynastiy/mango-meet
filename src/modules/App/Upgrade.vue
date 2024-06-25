@@ -10,28 +10,34 @@
           disabled
           readonly
         />
-        <span class="brand-primary p-[5px] rounded-md">
+        <span
+          class="brand-primary p-[5px] rounded-md"
+          role="button"
+          v-clipboard:copy="address"
+          v-clipboard:success="onCopy"
+          v-clipboard:error="onError"
+        >
           <i-icon icon="ion:copy" />
         </span>
       </div>
 
-      <!-- <div class="bg-secondary py-5 px-6 flex justify-between items-center rounded-[8px]">
-        <div class="flex flex-col gap-1">
-          <span class="font-medium text-gray-200 text-xs">Balance</span>
-          <span class="font-bold text-2xl text-white">0.6USDT</span>
-        </div>
-        <i-icon icon="solar:wallet-money-outline" class="text-4xl text-accent" />
-      </div> -->
       <div>
-        <user-wallet />
+        <user-wallet @walletSelected="walletRetrieved" />
       </div>
 
       <div>
-        <UpgradeFees />
+        <UpgradeFees @selectedFees="feesRetrieved" />
       </div>
     </div>
     <div class="flex gap-4 justify-center mt-3">
-      <button class="brand-btn brand-primary w-full">Upgrade</button>
+      <button
+        @click="payUpgradeFees"
+        class="brand-btn w-full"
+        :disabled="!hasCompleteData || loading"
+        :class="[!hasCompleteData ? 'bg-gray-400' : loading ? 'bg-gray-400' : 'brand-primary']"
+      >
+        Upgrade
+      </button>
     </div>
   </div>
 </template>
@@ -40,9 +46,14 @@
 import UpgradeFees from '@/components/Upgrade/UpgradeFees.vue'
 import UserWallet from '@/components/utils/UserWallet.vue'
 export default {
-  components: { UpgradeFees,  UserWallet },
+  components: { UpgradeFees, UserWallet },
   data() {
-    return {}
+    return {
+      wallet: null,
+      plan: null,
+      loading: false,
+      requestId: ''
+    }
   },
 
   methods: {
@@ -51,6 +62,51 @@ export default {
       this.$middleware.generateWalletAddress(user_id).then((res) => {
         this.$store.commit('auth/setWalletAddress', res.data.address)
       })
+    },
+
+    walletRetrieved(e) {
+      console.log(e)
+      this.wallet = e
+    },
+
+    feesRetrieved(e) {
+      console.log(e)
+      this.plan = e
+    },
+
+    payUpgradeFees() {
+      this.loading = true
+      let payload = {
+        user_id: this.user_id,
+        wallet_id: this.wallet.wallet_id,
+        subscription_duration: this.plan.subscription_duration,
+        request_id: this.requestId
+      }
+      this.$appDomain
+        .pay(payload)
+        .then((res) => {
+          console.log(res)
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
+
+    onCopy: function () {
+      this.$toastify({
+        text: `Wallet Address Copied`,
+        gravity: 'top', // `top` or `bottom`
+        position: 'center', // `left`, `center` or `right`
+        style: {
+          fontSize: '13px',
+          borderRadius: '4px',
+          background: '#333'
+        }
+      }).showToast()
+    },
+
+    onError: function () {
+      alert('Failed to copy texts')
     }
   },
 
@@ -61,12 +117,20 @@ export default {
     }
   },
 
+  mounted() {
+    var result = Math.round(+new Date() / 1000)
+    this.requestId = `${result}`
+  },
+
   computed: {
     address() {
       return this.$store.getters['auth/getWalletAddress']
     },
     user_id() {
       return this.$store.getters['auth/getUserID']
+    },
+    hasCompleteData() {
+      return this.plan && this.wallet ? true : false
     }
   }
 }
