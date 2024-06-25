@@ -15,7 +15,7 @@
             <div
               v-for="(item, idx) in items"
               :key="idx"
-              class="bg-white p-3 flex justify-between rounded-lg"
+              class="shadow p-3 flex justify-between rounded-[6px] gap-4"
             >
               <div class="flex gap-2">
                 <span
@@ -29,13 +29,13 @@
                   />
                 </span>
                 <span class="flex flex-col">
-                  <span class="font-semibold text-sm break-all">
-                    {{
-                      `${item.transaction_type} #${item.transaction_id}` +
-                      (item.note !== '' ? `~ ${item.note}` : '')
-                    }}
+                  <span class="font-semibold text-[12px] break-word">
+                    {{ `${item.transaction_type} #${item.transaction_id}` }}
+                    <span class="break-all">
+                      {{ item.note !== '' ? `~ ${item.note}` : '' }}
+                    </span>
                   </span>
-                  <span class="text-xs" v-html="item.date_time"> </span>
+                  <span class="text-xs font-medium" v-html="item.date_time"> </span>
                 </span>
               </div>
               <div class="flex flex-col items-end">
@@ -44,6 +44,26 @@
                 </span>
                 <span class="text-xs text-uppercase">{{ item.wallet_id }}</span>
               </div>
+            </div>
+          </div>
+          <div class="flex justify-between mt-3">
+            <button
+              class="brand-btn text-[12px] py-[6px]"
+              @click="changePage('prev')"
+              :disabled="meta.current_page === 1"
+              :class="[meta.current_page === 1 ? 'bg-gray-300' : 'brand-primary']"
+            >
+             ({{ +page - 1 }}) &laquo; previous 
+            </button>
+            <div class="self-end">
+              <button
+                class="brand-btn text-[12px] py-[6px]"
+                :disabled="meta.last_page === meta.current_page"
+                :class="[meta.last_page === meta.current_page ? 'bg-gray-300' : 'brand-primary']"
+                @click="changePage('next')"
+              >
+                next &raquo; ({{ +page + 1 }})
+              </button>
             </div>
           </div>
         </div>
@@ -58,7 +78,9 @@ export default {
     return {
       isActiveItem: null,
       loading: false,
-      items: []
+      items: [],
+      meta: {},
+      page: 1
     }
   },
 
@@ -66,24 +88,42 @@ export default {
     getTxnHistory() {
       this.loading = true
       let payload = {
-        user_id: this.user_id
+        user_id: this.user_id,
+        page_no: this.page,
+        per_page: 5
       }
       this.$appDomain
         .getTransactions(payload)
         .then((res) => {
-          console.log(res)
           this.items = res.data
+          this.meta = res.meta.pagination
         })
         .finally(() => {
           this.loading = false
         })
+    },
+
+    changePage(value) {
+      if (value === 'prev') {
+        this.page--
+      } else {
+        this.page++
+      }
     }
   },
 
   beforeMount() {
     this.getTxnHistory()
   },
-  
+
+  watch: {
+      page(oldVal, newVal) {
+        if (oldVal !== newVal) {
+          this.getTxnHistory();
+        }
+      },
+    },
+
   computed: {
     user_id() {
       return this.$store.getters['auth/getUserID']

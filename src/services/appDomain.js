@@ -74,4 +74,17 @@ export default {
       throw error
     }
   },
+
+  async getLocationByType(params) {
+    try {
+    let res = await $request.get(`wp-json/nellalink-mango-meet/v1/geo-data`, {
+      params
+    })
+    // catchAxiosSuccess(res)
+    return res.data
+  } catch (error) {
+    catchAxiosError(error)
+    throw error
+  }
+},
 }

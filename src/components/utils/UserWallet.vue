@@ -12,7 +12,7 @@
         <template #default>
           <div class="flex lg:flex-row md:flex-row flex-col w-full gap-4">
             <div
-              class="flex items-center wallet px-4 py-8 rounded-2xl justify-between lg:pt-4 lg:pt-4 w-full"
+              class="flex items-center bg-secondary text-white px-4 py-8 rounded-lg justify-between lg:pt-4 lg:pt-4 w-full"
               v-for="(item, i) in balances"
               :key="i"
             >
@@ -33,7 +33,7 @@
                   <span class="text-lg">{{ item.wallet_symbol }}</span>
                 </h1>
               </div>
-              <img src="@/assets/img/wallet.svg" class="w-24" alt="" />
+              <!-- <img src="@/assets/img/wallet.svg" class="w-24" alt="" /> -->
             </div>
           </div>
         </template>
@@ -63,7 +63,7 @@ export default {
       let payload = {
         wallet_id: 'usdt,chambs',
         formatted: 'yes',
-        user_id: 7
+        user_id: this.user_id
       }
       this.$appDomain
         .getWallets(payload)
@@ -84,6 +84,13 @@ export default {
           : null
     },
 
+    triggerDeposit(){
+      let payload = {
+        user_id: this.user_id
+      }
+      this.$middleware.dashboardRefresh(payload) 
+    },
+
     hideBalance(value) {
       let number_of_times = `${value.wallet_balance_raw} ${value.wallet_symbol}`
       let req = []
@@ -97,9 +104,13 @@ export default {
 
   beforeMount() {
     this.getWallets()
+    this.triggerDeposit()
   },
 
   computed: {
+    user_id() {
+      return this.$store.getters['auth/getUserID']
+    }
     // balance() {
     //   return Number(this.wallet.tradingBalance).toLocaleString('en-US', {
     //     style: 'currency',
@@ -121,7 +132,7 @@ export default {
 
 <style scoped>
 .wallet {
-  background: var(---secondary-color);
-  color: var(---white);
+  /* background: var(---secondary-color);
+  color: var(---white); */
 }
 </style>

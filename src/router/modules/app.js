@@ -48,10 +48,9 @@ const routes = [
       layout: 'Dashboard',
       requiresAuth: false,
       parent: 'home',
-      name: 'profile'
+      name: 'edit-profile'
     }
-  },
-
+  }
 ]
 
 export default routes

@@ -29,11 +29,6 @@
       <div>
         <UpgradeFees />
       </div>
-
-      <div>
-        <h4 class="font-semibold mb-2">Recent Transactions</h4>
-        <txn-history />
-      </div>
     </div>
     <div class="flex gap-4 justify-center mt-3">
       <button class="brand-btn brand-primary w-full">Upgrade</button>
@@ -43,10 +38,9 @@
 
 <script>
 import UpgradeFees from '@/components/Upgrade/UpgradeFees.vue'
-import TxnHistory from '@/components/Upgrade/TxnHistory.vue'
 import UserWallet from '@/components/utils/UserWallet.vue'
 export default {
-  components: { UpgradeFees, TxnHistory, UserWallet },
+  components: { UpgradeFees,  UserWallet },
   data() {
     return {}
   },

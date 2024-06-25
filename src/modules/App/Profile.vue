@@ -1,12 +1,14 @@
 <template>
-  <div class="flex gap-4 items-start lg:flex-row md:flex-row flex-col">
+  <div class="flex gap-6 items-start lg:flex-row md:flex-row flex-col">
     <div class="bg-white p-6 lg:w-6/12 md:w-6/12 w-full rounded-md flex justify-center">
       <div>
         <img
           :src="user.profile_picture_url ? user.profile_picture_url : image"
           class="w-[100px] h-[100px] mx-auto border-2 p-1 border-gray-200 rounded-full object-fit object-top"
         />
-        <h5 class="text-center text-sm font-semibold mt-2">{{ `${user.first_name} ${user.last_name}` }}</h5>
+        <h5 class="text-center text-sm font-semibold mt-2">
+          {{ `${user.first_name} ${user.last_name}` }}
+        </h5>
         <button
           class="brand-btn brand-primary mx-auto mt-2 py-2 text-xs flex items-center gap-2 justify-center"
           @click="$router.push('/upgrade')"
@@ -17,49 +19,27 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-3 bg-white p-6 w-full rounded-md">
-      <div class="flex lg:flex-row md:flex-row flex-col gap-3">
-        <span class="w-full">
-          <label class="text-xs" for="">First Name</label>
-          <input type="text" class="input" v-model="form.first_name" />
+    <div class="w-full">
+      <span class="flex mb-3 bg-gray-200 w-fit">
+        <span class="block px-3 py-2 text-[12px] capitalize font-medium" role="button" @click="activateTab(i)" :class="{'brand-primary text-white font-semibold' : i === activeTab }" v-for="(item, i) in tabs" :key="i">
+          {{ item.label }}
         </span>
-        <span class="w-full">
-          <label class="text-xs" for="">Last Name</label>
-          <input type="text" class="input" v-model="form.last_name" />
-        </span>
+      </span>
+      <div class="bg-white p-6">
+        <component :is="tabs[activeTab].component" />
       </div>
-      <span>
-        <label class="text-xs" for="">Phone Number</label>
-        <input type="text" class="input" v-model="form.phone_number" />
-      </span>
-      <span>
-        <label class="text-xs" for="">Gender</label>
-        <select name="" id="" class="input capitalize" v-model="form.gender">
-          <option v-for="(item, i) in ['male', 'female']" :value="item" :key="i">{{ item }}</option>
-        </select>
-      </span>
-      <span>
-        <label class="text-xs" for="">Date Of Birth</label>
-        <input type="date" class="input" v-model="form.date_of_birth" />
-      </span>
-      <span>
-        <label class="text-xs" for="">Country</label>
-        <input type="text" class="input" v-model="form.country" />
-      </span>
-      <span>
-        <label class="text-xs" for="">Region, State, Province</label>
-        <input type="text" class="input" v-model="form.region_state_province" />
-      </span>
-      <span>
-        <label class="text-xs" for="">Bio</label>
-        <textarea name="" id="" cols="30" class="input" rows="4" v-model="form.bio"></textarea>
-      </span>
     </div>
   </div>
 </template>
 
 <script>
+import Edit from '@/components/profile/Edit.vue'
+import Transactions from '@/components/profile/Transactions.vue'
+import Referral from '@/components/profile/Referral.vue'
+import { markRaw } from 'vue'
+
 export default {
+  // components: { Edit, Transactions },
   data() {
     return {
       form: {
@@ -73,7 +53,28 @@ export default {
         date_of_birth: '',
         gender: '',
         profile_picture_url: ''
-      }
+      },
+      tabs: [
+        {
+          label: 'profile',
+          component: markRaw(Edit)
+        },
+        {
+          label: 'transactions',
+          component: markRaw(Transactions)
+        },
+        {
+          label: 'referral',
+          component: markRaw(Referral)
+        }
+      ],
+      activeTab: 0
+    }
+  },
+
+  methods: {
+    activateTab(e) {
+      this.activeTab = e
     }
   },
 

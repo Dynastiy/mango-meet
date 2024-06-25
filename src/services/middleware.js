@@ -13,4 +13,19 @@ export default {
     }
   },
 
+  async dashboardRefresh(payload) {
+    const token = localStorage.getItem('_user_token')
+    try {
+      let res = await $request.post(`custom/mangomeet/trigger/on-user-frontend-dashboard-refresh`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      catchAxiosSuccess(res)
+      return res.data
+    } catch (error) {
+      catchAxiosError(error)
+      throw error
+    }
+  },
 }
