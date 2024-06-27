@@ -44,7 +44,7 @@ export default {
       this.$appDomain.getUser(payload).then((res) => {
         console.log(res)
         this.$store.commit('auth/setUser', res.data)
-        localStorage.setItem('_user_token', res.data.access_token)
+        localStorage.setItem('_mangomeet_token', res.data.access_token)
         this.getUser(res.data.user_id)
       })
       .finally(()=> {
@@ -54,9 +54,9 @@ export default {
   },
 
   beforeMount() {
-    let token = localStorage.getItem('_user_token')
+   
+    let token = localStorage.getItem('_mangomeet_token')
     if (!token) {
-      localStorage.removeItem('_user_token')
       this.loginUser()
     }
   },

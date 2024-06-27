@@ -11,12 +11,12 @@ function loginUser() {
   appDomain.getUser(payload).then((res) => {
     console.log(res, 'from:checking expired data')
     store.commit('auth/setUser', res.data)
-    localStorage.setItem('_user_token', res.data.access_token)
+    localStorage.setItem('_mangomeet_token', res.data.access_token)
   })
 }
 
 export function checkTokenExpiration() {
-  const token = localStorage.getItem('_user_token')
+  const token = localStorage.getItem('_mangomeet_token')
   if (token) {
     // Decode the token to get the expiration time
     const tokenData = jwtDecode(token)
