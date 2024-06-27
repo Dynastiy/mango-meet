@@ -3,11 +3,14 @@
     <div class="bg-white p-6 lg:w-6/12 md:w-6/12 w-full rounded-md flex justify-center">
       <div>
         <img
-          :src="user.profile_picture_url ? user.profile_picture_url : image"
+          :src="userMeta.profile_picture_url ? userMeta.profile_picture_url : image"
           class="w-[100px] h-[100px] mx-auto border-2 p-1 border-gray-200 rounded-full object-fit object-top"
         />
-        <h5 class="text-center text-sm font-semibold mt-2">
-          {{ `${user.first_name} ${user.last_name}` }}
+        <h5 class="text-center text-sm font-semibold mt-2 flex gap-[2px] items-center">
+          {{ `${userMeta.first_name} ${userMeta.last_name}` }}
+          <span>
+            <i-icon icon="mage:verified-check-fill" class="text-green-600" />
+          </span>
         </h5>
         <button
           class="brand-btn brand-primary mx-auto mt-2 py-2 text-xs flex items-center gap-2 justify-center"
@@ -21,7 +24,14 @@
 
     <div class="w-full">
       <span class="flex mb-3 bg-gray-200 w-fit">
-        <span class="block px-3 py-2 text-[12px] capitalize font-medium" role="button" @click="activateTab(i)" :class="{'brand-primary text-white font-semibold' : i === activeTab }" v-for="(item, i) in tabs" :key="i">
+        <span
+          class="block px-3 py-2 text-[12px] capitalize font-medium"
+          role="button"
+          @click="activateTab(i)"
+          :class="{ 'brand-primary text-white font-semibold': i === activeTab }"
+          v-for="(item, i) in tabs"
+          :key="i"
+        >
           {{ item.label }}
         </span>
       </span>
@@ -37,11 +47,13 @@ import Edit from '@/components/profile/Edit.vue'
 import Transactions from '@/components/profile/Transactions.vue'
 import Referral from '@/components/profile/Referral.vue'
 import { markRaw } from 'vue'
+import image from '@/assets/img/no-user.png'
 
 export default {
   // components: { Edit, Transactions },
   data() {
     return {
+      image,
       form: {
         first_name: '',
         last_name: '',
@@ -76,16 +88,16 @@ export default {
     activateTab(e) {
       this.activeTab = e
     },
-    getUser(){
+    getUser() {
       let payload = {
         meta_key:
           'first_name,last_name,gender,country,region_state_province,city,bio,date_of_birth,phone_number,profile_picture_url,subscription_fee_expiration_time_of_last_payment,subscription_fee_transaction_time_of_last_payment,subscription_fee_duration_of_last_payment,rimplenet_referrer_sponsor,telegram_chat_id,telegram_username,_username,_user_email',
         data_response_format: 'array',
         type: 'array_multi_27'
       }
-      this.$appDomain.getUserMeta(payload, this.user_id).then((res) => {
+      this.$appDomain.getUserMeta(payload, this.user.user_id).then((res) => {
         console.log(res.data)
-        this.$store.commit('auth/setUser', res.data)
+        this.$store.commit('auth/setUserMeta', res.data)
       })
     }
   },
@@ -100,7 +112,7 @@ export default {
     }
   },
 
-  beforeMount(){
+  beforeMount() {
     this.getUser()
   },
 
@@ -108,9 +120,9 @@ export default {
     user() {
       return this.$store.getters['auth/getUser']
     },
-    user_id() {
-      return this.$store.getters['auth/getUserID']
-    },
+    userMeta() {
+      return this.$store.getters['auth/getUserMeta']
+    }
   }
 }
 </script>

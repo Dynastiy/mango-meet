@@ -5,7 +5,7 @@ export default {
   state: {
     user: null,
     address: null,
-    userId: null,
+    userMeta: null,
     sub_categories: [],
     tags: [],
     order: null,
@@ -27,8 +27,8 @@ export default {
       state.order = data
     },
 
-    setUserID(state, ID) {
-      state.userId = ID
+    setUserMeta(state, data) {
+      state.userMeta = data
     },
 
     removeOrder(state) {
@@ -72,7 +72,7 @@ export default {
     isLoading: (state) => state.loading,
     getUser: (state) => state.user,
     getAddress: (state) => state.address,
-    getMeta: (state) => state.meta,
+    getUserMeta: (state) => state.userMeta,
     getToken: (state) => state.warehauze_token,
     getWalletAddress: (state) => state.address,
     getSubCategories: (state) => state.sub_categories,

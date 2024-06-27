@@ -2,14 +2,17 @@
   <div class="min-h-[85vh] flex flex-col justify-between">
     <div class="flex flex-col gap-4">
       <span class="text-sm font-semibold">Fund your balance below with USDT to upgrade</span>
-      <div class="flex items-center p-2 bg-white rounded-[6px] shadow-sm">
-        <input
+      <div class="flex items-center p-2 bg-white rounded-[6px] shadow-sm gap-3">
+        <!-- <input
           type="text"
-          class="bg-transparent w-full text-sm font-semibold"
+          class="bg-transparent w-full text-sm font-semibold block break-all"
           v-model="address"
           disabled
           readonly
-        />
+        /> -->
+        <span class="bg-transparent w-full text-sm font-semibold block break-all">
+          {{ address }}
+        </span>
         <span
           class="brand-primary p-[5px] rounded-md"
           role="button"
@@ -58,7 +61,7 @@ export default {
 
   methods: {
     generateAddress() {
-      let user_id = this.user_id
+      let user_id = this.user.user_id
       this.$middleware.generateWalletAddress(user_id).then((res) => {
         this.$store.commit('auth/setWalletAddress', res.data.address)
       })
@@ -77,7 +80,7 @@ export default {
     payUpgradeFees() {
       this.loading = true
       let payload = {
-        user_id: this.user_id,
+        user_id: this.user.user_id,
         wallet_id: this.wallet.wallet_id,
         subscription_duration: this.plan.subscription_duration,
         request_id: this.requestId
@@ -126,8 +129,8 @@ export default {
     address() {
       return this.$store.getters['auth/getWalletAddress']
     },
-    user_id() {
-      return this.$store.getters['auth/getUserID']
+    user() {
+      return this.$store.getters['auth/getUser']
     },
     hasCompleteData() {
       return this.plan && this.wallet ? true : false

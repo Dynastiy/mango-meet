@@ -92,9 +92,11 @@
 </template>
 
 <script>
+import image from '@/assets/img/no-user.png'
 export default {
   data() {
     return {
+      image,
       form: {
         first_name: '',
         last_name: '',
@@ -135,7 +137,7 @@ export default {
             ...this.form,
             date_of_birth: newDOB.join('-')
         }
-        this.$appDomain.updateUserMeta(payload, this.user_id)
+        this.$appDomain.updateUserMeta(payload, this.user.user_id)
         .then((res)=> {
             this.getUser()
             return res
@@ -145,13 +147,13 @@ export default {
     getUser() {
       let payload = {
         meta_key:
-          'first_name,last_name,gender,country,region_state_province,city,bio,date_of_birth,phone_number,profile_picture_url,subscription_fee_expiration_time_of_last_payment,subscription_fee_transaction_time_of_last_payment,subscription_fee_duration_of_last_payment,rimplenet_referrer_sponsor,telegram_chat_id,telegram_username,_username,_user_email',
+          'first_name,last_name,gender,country,region_state_province,city,bio,date_of_birth,phone_number,profile_picture_url,subscription_fee_expiration_time_of_last_payment,subscription_fee_transaction_time_of_last_payment,subscription_fee_duration_of_last_payment,rimplenet_referrer_sponsor,telegram_chat_id,telegram_username,_username,_user_email,subscription_fee_expiration_time_of_last_payment',
         data_response_format: 'array',
         type: 'array_multi_27'
       }
-      this.$appDomain.getUserMeta(payload, this.user_id).then((res) => {
+      this.$appDomain.getUserMeta(payload, this.user.user_id).then((res) => {
         console.log(res.data)
-        this.$store.commit('auth/setUser', res.data)
+        this.$store.commit('auth/setUserMeta', res.data)
       })
     }
   },
@@ -162,7 +164,7 @@ export default {
   },
 
   watch: {
-    user: {
+    userMeta: {
       handler(val) {
         let dob = val.date_of_birth.split('-')
         let newDOB = [dob[2], dob[1], dob[0]]
@@ -202,6 +204,10 @@ export default {
   computed: {
     user() {
       return this.$store.getters['auth/getUser']
+    },
+
+    userMeta() {
+      return this.$store.getters['auth/getUserMeta']
     },
 
     remainingCount() {

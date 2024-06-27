@@ -9,13 +9,16 @@
       </h6>
       <div>
         <div class="flex items-center bg-gray-100 p-2 rounded-[6px] border border-gray-100">
-          <input
+          <!-- <input
             type="text"
             class="bg-transparent w-full text-sm font-semibold"
             v-model="locat"
             disabled
             readonly
-          />
+          /> -->
+          <span class="bg-transparent w-full text-sm font-semibold block break all">
+            {{ locat }}
+          </span>
         </div>
         <div class="text-center flex gap-2 justify-center items-center mt-4">
           <button
@@ -77,7 +80,7 @@ export default {
       return `https://t.me/mangomeetbot?start=${this.user.telegram_chat_id}`
     },
     user() {
-      return this.$store.getters['auth/getUser']
+      return this.$store.getters['auth/getUserMeta']
     }
   }
 }

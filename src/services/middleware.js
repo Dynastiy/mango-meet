@@ -21,7 +21,7 @@ export default {
           Authorization: `Bearer ${token}`
         }
       })
-      catchAxiosSuccess(res)
+      // catchAxiosSuccess(res)
       return res.data
     } catch (error) {
       catchAxiosError(error)

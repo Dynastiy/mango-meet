@@ -56,7 +56,7 @@
             </span>
             <span class="text-sm font-medium flex items-center gap-1">
               <i-icon icon="tabler:location-filled" class="text-primary" />
-              {{ `${item?.region_state_province_name}, ${item?.country_name} ` }}
+              {{ `${item?.city} - ${item?.region_state_province_name}, ${item?.country_name} ` }}
             </span>
             <span class="font-medium text-sm flex flex-col">
               <span class="text-primary font-medium text-[13px]">About Me</span>
@@ -97,7 +97,7 @@ export default {
     getMatch() {
       this.loading = true
       let payload = this.filter
-      let user_id = this.user_id
+      let user_id = this.user.user_id
       this.$appDomain
         .getMatch(payload, user_id)
         .then((res) => {
@@ -113,7 +113,7 @@ export default {
     like(e) {
       let payload = {
         user_id_to_connect: e.ID,
-        user_id: this.user_id
+        user_id: this.user.user_id
       }
       this.$appDomain.likeMatch(payload).then((res) => {
         console.log(res)
@@ -140,8 +140,8 @@ export default {
   },
 
   computed: {
-    user_id() {
-      return this.$store.getters['auth/getUserID']
+    user() {
+      return this.$store.getters['auth/getUser']
     }
   }
 }

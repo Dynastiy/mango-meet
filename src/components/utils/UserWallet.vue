@@ -70,7 +70,7 @@ export default {
       let payload = {
         wallet_id: 'usdt,chambs',
         formatted: 'yes',
-        user_id: this.user_id
+        user_id: this.user.user_id
       }
       this.$appDomain
         .getWallets(payload)
@@ -99,7 +99,7 @@ export default {
 
     triggerDeposit() {
       let payload = {
-        user_id: this.user_id
+        user_id: this.user.user_id
       }
       this.$middleware.dashboardRefresh(payload)
     },
@@ -121,8 +121,8 @@ export default {
   },
 
   computed: {
-    user_id() {
-      return this.$store.getters['auth/getUserID']
+    user() {
+      return this.$store.getters['auth/getUser']
     }
     // balance() {
     //   return Number(this.wallet.tradingBalance).toLocaleString('en-US', {

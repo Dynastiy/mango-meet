@@ -2,10 +2,21 @@ import $request from '@/axios/index'
 import { catchAxiosError, catchAxiosSuccess } from './response'
 
 export default {
+  async getUser(params) {
+    try {
+      let res = await $request.get(`wp-json/nellalink-mango-meet/v1/get-user-login-details`, { params })
+      // catchAxiosSuccess(res)
+      return res.data
+    } catch (error) {
+      catchAxiosError(error)
+      throw error
+    }
+  },
+
   async getUserMeta(payload, user_id) {
     try {
       let res = await $request.get(`wp-json/nellalink/v2/smart-meta-manager/user/${user_id}`, { params: payload })
-      catchAxiosSuccess(res)
+      // catchAxiosSuccess(res)
       return res.data
     } catch (error) {
       catchAxiosError(error)

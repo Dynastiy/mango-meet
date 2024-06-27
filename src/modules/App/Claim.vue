@@ -29,7 +29,7 @@
       <button class="brand-btn brand-primary w-full" @click="$router.push('/')">
         Meet & Connect
       </button>
-      <button class="brand-btn bg-secondary text-white w-full" @click="$router.push('/app/claim')">
+      <button class="brand-btn bg-secondary text-white w-full" @click="$router.push('/claim')">
         Claim Starcoins
       </button>
     </div>
@@ -52,7 +52,7 @@ export default {
       let payload = {
         wallet_id: 'starcoins',
         formatted: 'yes',
-        user_id: this.user_id
+        user_id: this.user.user_id
       }
       this.$appDomain
         .getWallets(payload)
@@ -69,7 +69,7 @@ export default {
       this.loading = true
       let payload = {
         action_type: 'daily_coins_claim',
-        user_id: this.user_id
+        user_id: this.user.user_id
       }
       this.$appDomain
         .claim(payload)
@@ -90,8 +90,8 @@ export default {
   },
 
   computed:{
-    user_id(){
-      return this.$store.getters['auth/getUserID']
+    user(){
+      return this.$store.getters['auth/getUser']
     }
   }
 }

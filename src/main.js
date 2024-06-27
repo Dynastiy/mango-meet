@@ -161,7 +161,9 @@ import Editor from 'primevue/editor'
 import ProgressBar from 'primevue/progressbar'
 import Dropdown from 'primevue/dropdown'
 import Dialog from 'primevue/dialog'
+import Loader from '@/components/UI/Loader.vue'
 
+app.component('Loader', Loader)
 app.component('Dropdown', Dropdown)
 app.component('ProgressBar', ProgressBar)
 app.component('Rating', Rating)
