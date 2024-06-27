@@ -31,7 +31,7 @@
           <h1 class="font-bold text-2xl">{{ balance.wallet_balance_raw }}</h1>
         </div>
       </div> -->
-      <div class="w-full mt-3">
+      <div class="w-full mt-3 mb-6">
         <h4 class="font-semibold mb-2">Task to Earn Starcoins</h4>
         <span class="flex border border-gray-400 p-[3px] rounded-sm mb-3 w-full">
           <span
