@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { useToast } from 'vue-toastification'
+// import { useToast } from 'vue-toastification'
 export default {
   data() {
     return {
@@ -124,15 +124,17 @@ export default {
     },
 
     next() {
-      if (this.meta.last_page === this.meta.current_page) {
-        useToast().error('No more matches found', {
-          timeout: 6000
-        })
-      } else {
-        this.filter.page_no++
+      this.filter.page_no++
         this.getMatch()
-      }
     }
+      // if (this.meta.last_page === this.meta.current_page) {
+      //   useToast().error('No more matches found', {
+      //     timeout: 3000
+      //   })
+      // } else {
+        // this.filter.page_no++
+        // this.getMatch()
+      // }
   },
 
   beforeMount() {

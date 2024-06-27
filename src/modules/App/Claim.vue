@@ -8,14 +8,24 @@
           </span>
           {{ isLoading ? 0 : formatAmount(balance.wallet_balance_raw) }}
         </h1>
-        <h4 class="text-[14px] font-semibold text-gray-500">Starcoins Claimed</h4>
+        <h4 class="text-[14px] font-semibold text-gray-500">Starcoins Earned</h4>
       </div>
       <div
-        class="border-[12px] rounded-full mx-auto mt-4 flex items-center justify-center border border-primary w-[150px] h-[150px]"
+        class="border-[12px] rounded-full mx-auto mt-4 flex flex-col items-center justify-center border border-primary w-[150px] h-[150px]"
       >
-        <span class="font-bold text-xl">5,000</span>
+        <span class="font-bold text-xl h-full flex flex-col items-center justify-center"
+          >5,000</span
+        >
+        <span
+          :disabled="loading"
+          :class="[loading ? 'bg-gray-400' : 'brand-primary']"
+           @click="claimStarcoins('daily_coins_claim')"
+          class="h-32 flex flex-col items-center justify-center text-white font-semibold text-2xl w-full rounded-bl-full rounded-br-full"
+        >
+          Claim
+        </span>
       </div>
-      <button
+      <!-- <button
         class="brand-btn mx-auto flex items-center py-[6px] w-fit gap-2 justify-center"
         @click="claimStarcoins('daily_coins_claim')"
         :disabled="loading"
@@ -23,7 +33,7 @@
       >
         <i-icon icon="icomoon-free:fire" />
         Claim
-      </button>
+      </button> -->
 
       <!-- <div class="claim-header p-6 rounded-[8px] flex justify-between items-end text-white mt-12">
         <div>
@@ -32,7 +42,7 @@
         </div>
       </div> -->
       <div class="w-full mt-3 mb-6">
-        <h4 class="font-semibold mb-2">Task to Earn Starcoins</h4>
+        <h4 class="font-semibold mb-2">Task to Earn More Starcoins</h4>
         <span class="flex border border-gray-400 p-[3px] rounded-sm mb-3 w-full">
           <span
             class="block px-3 py-2 text-[12px] capitalize font-medium rounded-sm w-full text-center text-gray-400"
@@ -46,7 +56,7 @@
           </span>
         </span>
         <div class="bg-white p-6">
-          <component :is="tabs[activeTab].component" @claimReward="claimStarcoins"/>
+          <component :is="tabs[activeTab].component" @claimReward="claimStarcoins" />
         </div>
       </div>
     </div>
@@ -73,12 +83,12 @@ export default {
       isLoading: false,
       tabs: [
         {
-          label: 'Social',
+          label: 'Refer & Earn',
           component: markRaw(Social)
         },
 
         {
-          label: 'referral',
+          label: 'Follow & Earn',
           component: markRaw(Referral)
         }
       ],
