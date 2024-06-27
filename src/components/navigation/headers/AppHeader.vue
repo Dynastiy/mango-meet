@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-between items-center">
-      <span v-if="routeName === 'home'" class="brand-icon block text-3xl">Mango Meet</span>
+      <span v-if="routeName === 'home'" class="brand-icon block text-2xl">Mango Meet</span>
       <div v-else class="flex gap-4 items-center justify-between">
         <span
           @click="$router.go(-1)"
@@ -31,11 +31,11 @@
         </div> -->
         <button
           v-if="routeName === 'home'"
-          class="brand-btn brand-primary py-2 flex items-center gap-2 justify-center"
+          class="brand-btn brand-primary rounded-full flex items-center gap-2 justify-center"
           @click="$router.push('/upgrade')"
         >
           <i-icon icon="icomoon-free:fire" />
-          upgrade
+          <!-- upgrade -->
         </button>
       </div>
     </div>

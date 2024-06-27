@@ -6,13 +6,11 @@
           :src="userMeta.profile_picture_url ? userMeta.profile_picture_url : image"
           class="w-[100px] h-[100px] mx-auto border-2 p-1 border-gray-200 rounded-full object-fit object-top"
         />
-        <h5 class="text-center text-sm font-semibold mt-2 flex gap-[2px] items-center">
+        <h5 class="text-center text-sm font-semibold mt-2 flex items-center">
           {{ `${userMeta.first_name} ${userMeta.last_name}` }}
           <span v-if="timeLeft > 0">
             <i-icon icon="mage:verified-check-fill" class="text-green-600 text-lg" />
           </span>
-          <!-- {{ timeLeft }}
-          {{ Date.now() }} -->
         </h5>
         <button
           class="brand-btn brand-primary mx-auto mt-2 py-2 text-xs flex items-center gap-2 justify-center"

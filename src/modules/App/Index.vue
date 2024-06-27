@@ -47,8 +47,11 @@
             </div>
           </div>
           <div class="flex flex-col gap-3">
-            <h1 class="font-bold">
-              {{ `${item?.first_name} ${item?.last_name}` }},
+            <h1 class="font-bold flex items-center gap-[2px]">
+              {{ `${item?.first_name} ${item?.last_name}` }}
+              <span v-if="timeLeft(item) > 0">
+                <i-icon icon="mage:verified-check-fill" class="text-green-600 text-lg" />
+              </span>,
               <span class="text-primary font-bold">{{ item?.age }}</span>
             </h1>
             <span class="text-sm font-medium flex items-center gap-1 capitalize">
@@ -123,18 +126,25 @@ export default {
       // })
     },
 
+    timeLeft(value) {
+      return (
+        value.subscription_fee_expiration_time_of_last_payment -
+        value.subscription_fee_transaction_time_of_last_payment
+      )
+    },
+
     next() {
       this.filter.page_no++
-        this.getMatch()
+      this.getMatch()
     }
-      // if (this.meta.last_page === this.meta.current_page) {
-      //   useToast().error('No more matches found', {
-      //     timeout: 3000
-      //   })
-      // } else {
-        // this.filter.page_no++
-        // this.getMatch()
-      // }
+    // if (this.meta.last_page === this.meta.current_page) {
+    //   useToast().error('No more matches found', {
+    //     timeout: 3000
+    //   })
+    // } else {
+    // this.filter.page_no++
+    // this.getMatch()
+    // }
   },
 
   beforeMount() {
