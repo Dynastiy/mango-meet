@@ -8,8 +8,8 @@
         />
         <h5 class="text-center text-sm font-semibold mt-2 flex gap-[2px] items-center">
           {{ `${userMeta.first_name} ${userMeta.last_name}` }}
-          <span>
-            <i-icon icon="mage:verified-check-fill" class="text-green-600" />
+          <span v-if="isVerified">
+            <i-icon icon="mage:verified-check-fill" class="text-green-600 text-lg" />
           </span>
         </h5>
         <button
@@ -122,6 +122,9 @@ export default {
     },
     userMeta() {
       return this.$store.getters['auth/getUserMeta']
+    },
+    isVerified(){
+      return this.userMeta.subscription_fee_duration_of_last_payment*1000  > Date.now()
     }
   }
 }

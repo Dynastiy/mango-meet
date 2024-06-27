@@ -185,3 +185,17 @@ input[type="number"] {
   vertical-align: middle;
   width: var(--el-select-width);
 }
+
+/* Add these styles in your global CSS file or in your main component's styles */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  z-index: 9999;
+}

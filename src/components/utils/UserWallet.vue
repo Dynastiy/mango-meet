@@ -15,12 +15,10 @@
         <template #default>
           <div class="flex lg:flex-row md:flex-row flex-col w-full gap-4">
             <div
-              class="flex items-center bg-secondary text-white px-4 py-8 rounded-lg justify-between lg:pt-4 lg:pt-4 w-full hover:ml-2"
+              class="flex items-center bg-secondary text-white px-4 py-8 rounded-lg justify-between lg:pt-4 lg:pt-4 w-full"
               v-for="(item, i) in balances"
               :key="i"
               role="button"
-              @click="selectWallet(item)"
-              :class="[selected === item.wallet_id ? 'border-4 border-primary' : '' ]"
             >
               <div>
                 <span class="flex items-center gap-1">

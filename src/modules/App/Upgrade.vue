@@ -1,7 +1,9 @@
 <template>
   <div class="min-h-[85vh] flex flex-col justify-between">
     <div class="flex flex-col gap-4">
-      <span class="text-sm font-semibold">Fund your balance below with USDT to upgrade</span>
+      <span class="text-sm font-semibold"
+        >Fund your balance below with USDT or CHAMBS to upgrade</span
+      >
       <div class="flex items-center p-2 bg-white rounded-[6px] shadow-sm gap-3">
         <!-- <input
           type="text"
@@ -25,11 +27,22 @@
       </div>
 
       <div>
-        <user-wallet @walletSelected="walletRetrieved" />
+        <user-wallet />
       </div>
 
-      <div>
-        <UpgradeFees @selectedFees="feesRetrieved" />
+      <div class="flex gap-3 flex-col">
+        <div>
+          <label class="text-xs" for="">Select Wallet to pay from</label>
+          <select name="" id="" class="input" v-model="wallet">
+            <option value="" selected disabled>--Select Wallet--</option>
+            <option :value="item" v-for="item in ['usdt', 'chambs']" :key="item" >{{ item }}</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-xs" for="">Select Plan</label>
+          <UpgradeFees @selectedFees="feesRetrieved" />
+        </div>
       </div>
     </div>
     <div class="flex gap-4 justify-center mt-3">
@@ -52,7 +65,7 @@ export default {
   components: { UpgradeFees, UserWallet },
   data() {
     return {
-      wallet: null,
+      wallet: "",
       plan: null,
       loading: false,
       requestId: ''
@@ -67,11 +80,6 @@ export default {
       })
     },
 
-    walletRetrieved(e) {
-      console.log(e)
-      this.wallet = e
-    },
-
     feesRetrieved(e) {
       console.log(e)
       this.plan = e
@@ -81,7 +89,7 @@ export default {
       this.loading = true
       let payload = {
         user_id: this.user.user_id,
-        wallet_id: this.wallet.wallet_id,
+        wallet_id: this.wallet,
         subscription_duration: this.plan.subscription_duration,
         request_id: this.requestId
       }

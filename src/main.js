@@ -218,6 +218,7 @@ app.use(VueClipboard, {
 })
 app.use(QrReader)
 
+
 // Plugins
 import { currencyFormat, formatDate, getID } from './plugins/filters'
 app.config.globalProperties.$currencyFormat = currencyFormat

@@ -1,22 +1,14 @@
 <template>
   <div>
     <!-- Hello World -->
-    <div class="flex flex-col gap-6">
-      <img src="@/assets/img/share.svg" class="w-60 block mx-auto" alt="" />
-      <h2 class="font-semibold text-lg text-center">Invite your friends</h2>
+    <div class="flex flex-col gap-2">
+      <h2 class="font-semibold text-lg">Refer & Earn</h2>
       <h6 class="text-gray-500 text-[13px] lg:w-5/12 md:w-6/12 w-full mx-auto">
         Earn <b>20,000</b> starcoins by referring your friends and loved ones using your link
       </h6>
       <div>
         <div class="flex items-center bg-gray-100 p-2 rounded-[6px] border border-gray-100">
-          <!-- <input
-            type="text"
-            class="bg-transparent w-full text-sm font-semibold"
-            v-model="locat"
-            disabled
-            readonly
-          /> -->
-          <span class="bg-transparent w-full text-sm font-semibold block break all text-center">
+          <span class="bg-transparent text-center w-full text-sm font-semibold block break all">
             {{ locat }}
           </span>
         </div>
@@ -66,8 +58,7 @@ export default {
     async onShare() {
       try {
         await navigator.share({
-          title: `
-        Earn 20,000 starcoins by referring your friends and loved ones using your link`,
+          title: `Earn 200,000 starcoins by referring your friends and loved ones using your link`,
           text: 'Share referral code',
           url: this.locat
         })

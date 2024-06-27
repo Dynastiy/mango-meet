@@ -23,7 +23,7 @@
         <div class="flex gap-3">
           <span class="w-full">
             <label class="text-xs" for="">Phone Number</label>
-            <input type="text" class="input" v-model="form.phone_number" />
+            <input type="tel" class="input" v-model="form.phone_number" />
           </span>
           <span class="w-full">
             <label class="text-xs" for="">Date Of Birth</label>
