@@ -97,7 +97,7 @@ export default {
         data_response_format: 'array',
         type: 'array_multi_27'
       }
-      this.$appDomain.getUserMeta(payload, 29).then((res) => {
+      this.$appDomain.getUserMeta(payload, this.user.user_id).then((res) => {
         console.log(res.data)
         this.$store.commit('auth/setUserMeta', res.data)
       })
