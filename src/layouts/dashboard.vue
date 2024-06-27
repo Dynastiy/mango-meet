@@ -54,10 +54,10 @@ export default {
   },
 
   beforeMount() {
-    let token = localStorage.getItem('_user_token')
-    if (!token) {
+    // let token = localStorage.getItem('_user_token')
+    // if (!token) {
       this.loginUser()
-    }
+    // }
   },
 
   created() {},
