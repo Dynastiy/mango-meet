@@ -41,23 +41,31 @@ export default {
       let payload = {
         chat_id: queryData.chat_id
       }
-      this.$appDomain.getUser(payload).then((res) => {
-        console.log(res)
-        this.$store.commit('auth/setUser', res.data)
-        localStorage.setItem('_mangomeet_token', res.data.access_token)
-        this.getUser(res.data.user_id)
-      })
-      .finally(()=> {
-        this.loading = false
-      })
+      this.$appDomain
+        .getUser(payload)
+        .then((res) => {
+          console.log(res)
+          this.$store.commit('auth/setUser', res.data)
+          localStorage.setItem('_mangomeet_token', res.data.access_token)
+          this.getUser(res.data.user_id)
+        })
+        .finally(() => {
+          this.loading = false
+        })
     }
   },
 
   beforeMount() {
-   
     let token = localStorage.getItem('_mangomeet_token')
+    const queryData = this.$route.query
     if (!token) {
       this.loginUser()
+    } else {
+      if (queryData.chat_id) {
+        if (queryData.chat_id !== this.userMeta.telegram_chat_id) {
+          this.loginUser()
+        }
+      }
     }
   },
 
@@ -74,6 +82,10 @@ export default {
 
     user() {
       return this.$store.getters['auth/getUser']
+    },
+
+    userMeta() {
+      return this.$store.getters['auth/getUserMeta']
     },
 
     isSubPage() {
