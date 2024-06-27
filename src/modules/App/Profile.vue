@@ -8,9 +8,11 @@
         />
         <h5 class="text-center text-sm font-semibold mt-2 flex gap-[2px] items-center">
           {{ `${userMeta.first_name} ${userMeta.last_name}` }}
-          <span v-if="isVerified">
+          <span v-if="timeLeft > 0">
             <i-icon icon="mage:verified-check-fill" class="text-green-600 text-lg" />
           </span>
+          <!-- {{ timeLeft }}
+          {{ Date.now() }} -->
         </h5>
         <button
           class="brand-btn brand-primary mx-auto mt-2 py-2 text-xs flex items-center gap-2 justify-center"
@@ -95,7 +97,7 @@ export default {
         data_response_format: 'array',
         type: 'array_multi_27'
       }
-      this.$appDomain.getUserMeta(payload, this.user.user_id).then((res) => {
+      this.$appDomain.getUserMeta(payload, 29).then((res) => {
         console.log(res.data)
         this.$store.commit('auth/setUserMeta', res.data)
       })
@@ -123,8 +125,8 @@ export default {
     userMeta() {
       return this.$store.getters['auth/getUserMeta']
     },
-    isVerified(){
-      return this.userMeta.subscription_fee_duration_of_last_payment*1000  > Date.now()
+    timeLeft(){
+      return this.userMeta.subscription_fee_expiration_time_of_last_payment - this.userMeta.subscription_fee_transaction_time_of_last_payment
     }
   }
 }

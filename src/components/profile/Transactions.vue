@@ -88,7 +88,7 @@ export default {
     getTxnHistory() {
       this.loading = true
       let payload = {
-        user_id: this.user_id,
+        user_id: this.user.user_id,
         page_no: this.page,
         per_page: 5
       }
@@ -125,8 +125,8 @@ export default {
     },
 
   computed: {
-    user_id() {
-      return this.$store.getters['auth/getUserID']
+    user() {
+      return this.$store.getters['auth/getUser']
     }
   }
 }
