@@ -5,7 +5,8 @@
       <img src="@/assets/img/share.svg" class="w-60 block mx-auto" alt="" />
       <h2 class="font-semibold text-lg text-center">Invite your friends</h2>
       <h6 class="text-gray-500 text-[13px] lg:w-5/12 md:w-6/12 w-full mx-auto">
-        Earn <b>20,000</b> starcoins by referring your friends and loved ones using your link
+        
+        Earn <b>20,000</b> starcoins per each referred user, refer your friends and loved ones using the link below:
       </h6>
       <div>
         <div class="flex items-center bg-gray-100 p-2 rounded-[6px] border border-gray-100">

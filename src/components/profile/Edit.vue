@@ -81,10 +81,11 @@
       </div>
       <button
         @click="updateUser"
-        class="brand-btn w-full mt-4"
+        class="mt-4 brand-btn w-full flex items-center justify-center gap-[4px]"
         :disabled="loading"
         :class="[loading ? 'bg-gray-400' : 'brand-primary']"
       >
+        <i-icon icon="eos-icons:loading" class="text-[20px]" v-if="loading" />
         Update Profile
       </button>
     </div>
@@ -130,18 +131,21 @@ export default {
       })
     },
 
-    updateUser(){
-        let dob = this.form.date_of_birth.split('-')
-        let newDOB = [dob[2], dob[1], dob[0]]
-        let payload = {
-            ...this.form,
-            date_of_birth: newDOB.join('-')
-        }
-        this.$appDomain.updateUserMeta(payload, this.user.user_id)
-        .then((res)=> {
-            this.getUser()
-            return res
-        })
+    updateUser() {
+      this.loading = true
+      let dob = this.form.date_of_birth.split('-')
+      let newDOB = [dob[2], dob[1], dob[0]]
+      let payload = {
+        ...this.form,
+        date_of_birth: newDOB.join('-')
+      }
+      this.$appDomain.updateUserMeta(payload, this.user.user_id).then((res) => {
+        this.getUser()
+        return res
+      })
+      .finally(()=> {
+        this.loading = false
+      })
     },
 
     getUser() {

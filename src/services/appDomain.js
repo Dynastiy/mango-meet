@@ -39,7 +39,7 @@ export default {
   async getMatch(payload, user_id) {
     try {
       let res = await $request.get(`wp-json/nellalink-mango-meet/v1/match/${user_id}`, { params: payload })
-      catchAxiosSuccess(res)
+      // catchAxiosSuccess(res)
       return res.data
     } catch (error) {
       catchAxiosError(error)

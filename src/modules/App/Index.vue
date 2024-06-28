@@ -31,6 +31,13 @@
           >
             <div class="flex items-center justify-center gap-6 w-full">
               <span
+                role="button"
+                @click="prev"
+                class="brand-primary block rounded-[8px] p-4 text-xl text-white w-fit shadow"
+              >
+                <i-icon icon="charm:arrow-left" />
+              </span>
+              <span
                 class="bg-white block rounded-[8px] p-4 text-xl text-secondary w-fit shadow"
                 role="button"
                 @click="like(item)"
@@ -51,11 +58,12 @@
               {{ `${item?.first_name} ${item?.last_name}` }}
               <span v-if="timeLeft(item) > 0">
                 <i-icon icon="mage:verified-check-fill" class="text-green-600 text-lg" />
-              </span>,
-              <span class="text-primary font-bold">{{ item?.age }}</span>
+              </span>
+              
             </h1>
             <span class="text-sm font-medium flex items-center gap-1 capitalize">
-              <i-icon icon="icons8:gender" class="text-primary" /> {{ item.gender }}
+              <i-icon icon="icons8:gender" class="text-primary" /> 
+              <span class="text-primary font-bold">{{ `${item.gender}, ${item?.age}yrs` }}</span>
             </span>
             <span class="text-sm font-medium flex items-center gap-1">
               <i-icon icon="tabler:location-filled" class="text-primary" />
@@ -136,15 +144,14 @@ export default {
     next() {
       this.filter.page_no++
       this.getMatch()
+    },
+
+    prev(){
+      if(this.meta.current_page > 1) {
+        this.filter.page_no--
+        this.getMatch()
+      }
     }
-    // if (this.meta.last_page === this.meta.current_page) {
-    //   useToast().error('No more matches found', {
-    //     timeout: 3000
-    //   })
-    // } else {
-    // this.filter.page_no++
-    // this.getMatch()
-    // }
   },
 
   beforeMount() {

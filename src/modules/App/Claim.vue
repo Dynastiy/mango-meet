@@ -16,24 +16,24 @@
         <span class="font-bold text-xl h-full flex flex-col items-center justify-center"
           >5,000</span
         >
-        <span
+        <!-- <span
           :disabled="loading"
           :class="[loading ? 'bg-gray-400' : 'brand-primary']"
            @click="claimStarcoins('daily_coins_claim')"
           class="h-32 flex flex-col items-center justify-center text-white font-semibold text-2xl w-full rounded-bl-full rounded-br-full"
         >
           Claim
-        </span>
+        </span> -->
       </div>
-      <!-- <button
-        class="brand-btn mx-auto flex items-center py-[6px] w-fit gap-2 justify-center"
+      <button
+        class="brand-btn mx-auto flex items-center py-[12px] w-fit gap-2 justify-center"
         @click="claimStarcoins('daily_coins_claim')"
         :disabled="loading"
         :class="[loading ? 'bg-gray-400' : 'brand-primary']"
       >
         <i-icon icon="icomoon-free:fire" />
         Claim
-      </button> -->
+      </button>
 
       <!-- <div class="claim-header p-6 rounded-[8px] flex justify-between items-end text-white mt-12">
         <div>
@@ -56,7 +56,7 @@
           </span>
         </span>
         <div class="bg-white p-6">
-          <component :is="tabs[activeTab].component" @claimReward="claimStarcoins" />
+          <component :is="tabs[activeTab].component" @claimReward="claimStarcoins" :isType="isType"/>
         </div>
       </div>
     </div>
@@ -84,15 +84,16 @@ export default {
       tabs: [
         {
           label: 'Refer & Earn',
-          component: markRaw(Social)
+          component: markRaw(Referral)
         },
 
         {
           label: 'Follow & Earn',
-          component: markRaw(Referral)
+          component: markRaw(Social)
         }
       ],
-      activeTab: 0
+      activeTab: 0,
+      isType: ''
     }
   },
 
@@ -115,16 +116,12 @@ export default {
         })
     },
 
-    // claimReward(e) {
-    //   console.log(e);
-    // },
-
     activateTab(e) {
       this.activeTab = e
     },
 
     formatAmount(value) {
-      return value.toLocaleString().split(',').join(' ')
+      return value.toLocaleString()
     },
 
     claimStarcoins(e) {
@@ -133,6 +130,7 @@ export default {
         action_type: e,
         user_id: this.user.user_id
       }
+      this.isType = e
       this.$appDomain
         .claim(payload)
         .then((res) => {
@@ -141,6 +139,7 @@ export default {
         })
         .finally(() => {
           this.loading = false
+          this.isType = ""
         })
     }
   },

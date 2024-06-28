@@ -35,7 +35,7 @@
           <label class="text-xs" for="">Select Wallet to pay from</label>
           <select name="" id="" class="input" v-model="wallet">
             <option value="" selected disabled>--Select Wallet--</option>
-            <option :value="item" v-for="item in ['usdt', 'chambs']" :key="item" >{{ item }}</option>
+            <option :value="item" v-for="item in ['usdt', 'chambs']" :key="item">{{ item }}</option>
           </select>
         </div>
 
@@ -48,10 +48,11 @@
     <div class="flex gap-4 justify-center mt-3">
       <button
         @click="payUpgradeFees"
-        class="brand-btn w-full"
+        class="brand-btn w-full flex items-center justify-center gap-[4px]"
         :disabled="!hasCompleteData || loading"
         :class="[!hasCompleteData ? 'bg-gray-400' : loading ? 'bg-gray-400' : 'brand-primary']"
       >
+        <i-icon icon="eos-icons:loading" class="text-[20px]" v-if="loading"/>
         Upgrade
       </button>
     </div>
@@ -65,7 +66,7 @@ export default {
   components: { UpgradeFees, UserWallet },
   data() {
     return {
-      wallet: "",
+      wallet: '',
       plan: null,
       loading: false,
       requestId: ''
